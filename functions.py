@@ -15,3 +15,23 @@ def carrega_edges():
             edges[re.search("(\w+).edges",file_name).group(1)].add(reg.group(1))
             edges[re.search("(\w+).edges",file_name).group(1)].add(reg.group(2))
     return edges
+
+# TODO Falta colocar as features do ego node, adicionar o quanto antes #facil
+def carrega_features():
+    feats = dict()
+    feat_names = []
+    for file_name in glob.glob("twitter/*.feat"):
+        feat_file = open(file_name, "r")
+        feat_name_file = open("twitter/"+re.search("(\w+).feat",file_name).group(1)+".featnames", encoding="utf8")
+        # Captura nome das features
+        for feat_name_line in feat_name_file:
+            reg = re.search("(\d) (.*)",feat_name_line)
+            feat_names.append(reg.group(2))
+        # Pega os valores das features para cada nó
+        for feat_line in feat_file:
+            reg = re.search("(\w+) (.*)",feat_line)
+            for idx, value in enumerate(reg.group(2).split(" ")):
+                if reg.group(1) not in feats:
+                    feats[reg.group(1)] = dict()
+                feats[reg.group(1)][feat_names[idx]] = value
+    return feats

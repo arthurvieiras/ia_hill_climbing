@@ -4,5 +4,7 @@ import functions
 # o arquivo circles e todas as referências aos dados contidos nele serão ignorados)
 
 edges = functions.carrega_edges()
+features = functions.carrega_features()
 
 print(edges)
+print(features['35415466'])
