@@ -22,7 +22,9 @@ def carrega_features():
     feat_names = []
     for file_name in glob.glob("twitter/*.feat"):
         feat_file = open(file_name, "r")
-        feat_name_file = open("twitter/"+re.search("(\w+).feat",file_name).group(1)+".featnames", encoding="utf8")
+        egoID = re.search("(\w+).feat",file_name).group(1)
+        feat_name_file = open("twitter/"+egoID+".featnames", encoding="utf8")
+        ego_feat_file = open("twitter/"+egoID+".egofeat")
         # Captura nome das features
         for feat_name_line in feat_name_file:
             reg = re.search("(\d) (.*)",feat_name_line)
@@ -34,4 +36,10 @@ def carrega_features():
                 if reg.group(1) not in feats:
                     feats[reg.group(1)] = dict()
                 feats[reg.group(1)][feat_names[idx]] = value
+        # Adiciona valor das features para o egonode
+        feat_line = ego_feat_file.readline()
+        for idx, value in enumerate(feat_line.split(" ")):
+            if egoID not in feats:
+                feats[egoID] = dict()
+            feats[egoID][feat_names[idx]] = value
     return feats
