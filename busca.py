@@ -1,6 +1,3 @@
-import functions
-
-
 def dfs_recursive(graph, vertex, path=[], limit=4):
     path += [vertex]
     # print('visiting', vertex)
@@ -22,7 +19,6 @@ def dfs_recursive(graph, vertex, path=[], limit=4):
     return path
 
 
-def assert_influence(node_key, influence_value):
-    graph = functions.carrega_edges()
+def assert_influence(graph, node_key, influence_value):
     value = dfs_recursive(graph, node_key).__len__()
     return value == influence_value
