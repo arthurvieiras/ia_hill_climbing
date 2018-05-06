@@ -1,0 +1,34 @@
+A heurística proposta consiste numa programação dinâmica, que inicia a partir da escolha aleatória de um nó e salva a quantidade de arestas que os nós possuem na propria estrutura do nó. Após a avaliação da quantidade de arestas (baseado numa busca em profundiade) até k-niveis, a heuristica segue para o próximo passo, onde é acessado diretamente o nó que possua a maior quantidade de arestas, e é adicionado a quantidade de arestas dos filhos até k-niveis, com sobreposição. Todos os nós que possuem somente uma aresta de ligação são trivialmente removidos, para diminuir o overhead de memória. 
+
+
+
+
+
+
+Selecionar um Nó N aleatoriamente e coloca na pilha
+valor_max = 0
+Até k-nível 
+    Acessa nó da pilha
+    Contar quantidade de edges
+    Marcar como visitado 
+    Se quantidade > valor_max
+        valor_max = quantidade
+    Se existir N.filho !=visitado  e tam_pilha < k e quantidade > 1 
+        Salvar a quantidade na estrutura do nó
+        add pilha
+    Senão 
+        Remover da pilha
+
+Até k-nível
+Acessar o nó que tenha o valor_max, Nq
+Reseta lista de visitados
+Acessa lista de filhos
+    Se filho não visitado 
+        nq.quantidade  += nq.filho.quantidade -1 
+        Marca Filho visitado
+
+
+
+
+
+
