@@ -1,6 +1,7 @@
 import functions
 import algorithms
 import busca
+import datetime
 # Carrega os dados para uma estrutura de lista de lista de relaionamentos
 # e carrega as features para um hashmap (para o propósito desse trablaho
 # o arquivo circles e todas as referências aos dados contidos nele serão ignorados)
@@ -8,7 +9,12 @@ import busca
 edges = functions.carrega_edges()
 #features = functions.carrega_features()
 
-algorithms.climb(edges)
+pre = datetime.datetime.now()
+node = algorithms.climb(edges)
+pos = datetime.datetime.now()
+print("Climbing demora: "+ str(pos-pre))
+print("Qtd de nós vizitados: " + str(len(algorithms.ginfluences)))
+print(algorithms.calculateInfluence(node))
 #print(features['35415466'])
 
 # Exemplo de assert usando a busca

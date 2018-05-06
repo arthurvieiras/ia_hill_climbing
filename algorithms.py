@@ -12,9 +12,24 @@ def climb(nodes):
     global gnodes
     gnodes = nodes
     first_node = getRandomNode()
-    print(calculateInfluence(first_node))
-    print(first_node)
-    print(gnodes[first_node])
+
+    # Climbing
+    biggestInfluence = calculateInfluence(first_node)
+    actual_node = first_node
+    biggestNode = getBiggestNeighbor(actual_node)
+    while actual_node != biggestNode:
+        actual_node = biggestNode
+        biggestNode = getBiggestNeighbor(actual_node)
+    return biggestNode
+
+def getBiggestNeighbor(node):
+    biggestInfluence = calculateInfluence(node)
+    biggestNode = node
+    for n in gnodes[node]:
+        if(calculateInfluence(n) > biggestInfluence):
+            biggestInfluence = calculateInfluence(n)
+            biggestNode = n
+    return biggestNode
 
 
 def getRandomNode():
@@ -24,14 +39,16 @@ def getRandomNode():
 # Calcula influencia até o 3 (INFLUENCE_DEPTH configurável) nível
 def calculateInfluence(nodeKey):
     global ginfluences
+    if nodeKey not in gnodes:
+        return 1
     if nodeKey in ginfluences:
-        return ginfluences[node.keys()[0]]
+        return ginfluences[nodeKey]
     else:
         influenceCounter = set()
         nodesToSee = list()
         influenceCounter.add(nodeKey)
         nodesToSee.append(gnodes[nodeKey])
-        for i in range(0, INFLUENCE_DEPTH):
+        for i in range(1, INFLUENCE_DEPTH):
             nextNodes = list()
             for n in nodesToSee:
                 for vizinho in n:
@@ -41,4 +58,5 @@ def calculateInfluence(nodeKey):
                     if vizinho in gnodes:
                         nextNodes.append(gnodes[vizinho])
             nodesToSee = nextNodes
+        ginfluences[nodeKey] = len(influenceCounter)
     return len(influenceCounter)

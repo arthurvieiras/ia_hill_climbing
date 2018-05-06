@@ -16,7 +16,6 @@ def carrega_edges():
             edges[re.search("(\w+).edges",file_name).group(1)].add(reg.group(2))
     return edges
 
-# TODO Falta colocar as features do ego node, adicionar o quanto antes #facil
 def carrega_features():
     feats = dict()
     feat_names = []
