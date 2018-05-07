@@ -4,7 +4,7 @@ gnodes = dict()
 ginfluences = dict()
 
 # Configs
-INFLUENCE_DEPTH = 5
+INFLUENCE_DEPTH = 2
 
 def carregaNos(nodes):
     global gnodes
