@@ -4,25 +4,31 @@ gnodes = dict()
 ginfluences = dict()
 
 # Configs
-INFLUENCE_DEPTH = 3
+INFLUENCE_DEPTH = 5
 
 def carregaNos(nodes):
     global gnodes
     gnodes = nodes
 
 # Pega um nó randomico e realiza o climbing retornando o resultado
-# TODO talvez seja melhor realizar umas 5 ou 10 vezes e retornar todos os resultados
 def climb(nodes):
-    first_node = getRandomNode()
+    try_counts = 10
+    selection = []
 
-    # Climbing
-    biggestInfluence = calculateInfluence(first_node)
-    actual_node = first_node
-    biggestNode = getBiggestNeighbor(actual_node)
-    while actual_node != biggestNode:
-        actual_node = biggestNode
+    # seleciona até 5 nós influentes em 10 tentativas
+    while selection.__len__() <= 5 and try_counts >= 0:
+        actual_node = getRandomNode()
+
+        # Climbing
         biggestNode = getBiggestNeighbor(actual_node)
-    return biggestNode
+
+        while actual_node != biggestNode:
+            actual_node = biggestNode
+            biggestNode = getBiggestNeighbor(actual_node)
+        if biggestNode not in selection:
+            selection.append(biggestNode)
+        try_counts -= 1
+    return selection
 
 def getBiggestNeighbor(node):
     biggestInfluence = calculateInfluence(node)
