@@ -9,6 +9,7 @@ import datetime
 edges = functions.carrega_edges()
 #features = functions.carrega_features()
 
+algorithms.carregaNos(edges)
 pre = datetime.datetime.now()
 selection = algorithms.climb(edges)
 pos = datetime.datetime.now()
