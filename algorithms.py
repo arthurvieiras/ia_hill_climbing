@@ -6,11 +6,13 @@ ginfluences = dict()
 # Configs
 INFLUENCE_DEPTH = 3
 
+def carregaNos(nodes):
+    global gnodes
+    gnodes = nodes
+
 # Pega um nó randomico e realiza o climbing retornando o resultado
 # TODO talvez seja melhor realizar umas 5 ou 10 vezes e retornar todos os resultados
 def climb(nodes):
-    global gnodes
-    gnodes = nodes
     first_node = getRandomNode()
 
     # Climbing
@@ -48,7 +50,7 @@ def calculateInfluence(nodeKey):
         nodesToSee = list()
         influenceCounter.add(nodeKey)
         nodesToSee.append(gnodes[nodeKey])
-        for i in range(1, INFLUENCE_DEPTH):
+        for i in range(0, INFLUENCE_DEPTH):
             nextNodes = list()
             for n in nodesToSee:
                 for vizinho in n:

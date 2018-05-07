@@ -9,12 +9,14 @@ import datetime
 edges = functions.carrega_edges()
 #features = functions.carrega_features()
 
+algorithms.carregaNos(edges)
 pre = datetime.datetime.now()
-node = algorithms.climb(edges)
+#node = algorithms.climb(edges)
 pos = datetime.datetime.now()
 print("Climbing demora: "+ str(pos-pre))
 print("Qtd de nós vizitados: " + str(len(algorithms.ginfluences)))
-print(algorithms.calculateInfluence(node))
+#print(str('node') + " 1186 influência: " + str(algorithms.calculateInfluence('1186')))
+print(len(busca.dfs_recursive(edges, '1186')))
 #print(features['35415466'])
 
 # Exemplo de assert usando a busca
