@@ -18,20 +18,23 @@ print(" Qtd de nós vizitados: " + str(len(algorithms.ginfluences)))
 count = 0
 for n in selection:
     count += 1
-    print(" ", count, "# Nó escolhido:", n)
-    print(" Valor de infuencia do nó:", algorithms.calculateInfluence(n))
-#print(features['35415466'])
+    print(" "+str(count)+"# Nó escolhido:", n,
+          "- com infuência de", algorithms.calculateInfluence(n))
 
-# Exemplo de assert usando a busca
-## Heurítica achou que o nó '12831' é um influenciador com uma influencia de 237
-print("----------------------------")
-print("Verificação utilizando busca em profundidade:")
+# print(features['35415466'])
+
+# Busca em profundidade com limitador
+print("|-------------------------------------------------------------------------|")
+print("Verificação do resultado utilizando busca em profundidade:")
 count = 0
 for n in selection:
     count += 1
+    pre = datetime.datetime.now()
     result = busca.assert_influence(edges, n, algorithms.calculateInfluence(n))
     if result[0]:
-        print(' #', count, 'Nó', n, ': valor de infuência verificado')
+        print(' ' + str(count) + '# Nó', n, ': valor de infuência corresponde')
     else:
-        print(' #', count, 'Nó', n, ': valor de influência não corresponde. Busca retornou:',
+        print(' ' + str(count) + '# Nó', n, ': valor de influência não corresponde. Busca retornou:',
               result[1])
+    pos = datetime.datetime.now()
+    print('    verificação demorou: ' + str(pos - pre))

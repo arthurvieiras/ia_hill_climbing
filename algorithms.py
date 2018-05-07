@@ -2,6 +2,7 @@ import random
 
 gnodes = dict()
 ginfluences = dict()
+selection = []
 
 # Configs
 INFLUENCE_DEPTH = 3
@@ -10,11 +11,9 @@ INFLUENCE_DEPTH = 3
 def climb(nodes):
     global gnodes
     gnodes = nodes
-    try_counts = 10
-    selection = []
 
     # seleciona até 5 nós influentes em 10 tentativas
-    while selection.__len__() <= 5 and try_counts >= 0:
+    while len(selection) < 5:
         actual_node = getRandomNode()
 
         # Climbing
@@ -25,16 +24,16 @@ def climb(nodes):
             biggestNode = getBiggestNeighbor(actual_node)
         if biggestNode not in selection:
             selection.append(biggestNode)
-        try_counts -= 1
     return selection
 
 def getBiggestNeighbor(node):
     biggestInfluence = calculateInfluence(node)
     biggestNode = node
     for n in gnodes[node]:
-        if(calculateInfluence(n) > biggestInfluence):
-            biggestInfluence = calculateInfluence(n)
-            biggestNode = n
+        if n not in selection:
+            if(calculateInfluence(n) > biggestInfluence):
+                biggestInfluence = calculateInfluence(n)
+                biggestNode = n
     return biggestNode
 
 
